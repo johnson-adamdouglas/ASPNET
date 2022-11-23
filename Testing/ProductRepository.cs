@@ -42,6 +42,13 @@ namespace Testing
             return product;
         }
 
+        public void DeleteProduct(Product product)
+        {
+            _conn.Execute("DELETE FROM REVIEWS WHERE ProductID = @id;", new { id = product.ProductID });
+            _conn.Execute("DELETE FROM Sales WHERE ProductID = @id;", new { id = product.ProductID });
+            _conn.Execute("DELETE FROM Products WHERE ProductID = @id;", new { id = product.ProductID });
+        }
+
         private readonly IDbConnection _conn;
         public ProductRepository(IDbConnection conn)
         {
